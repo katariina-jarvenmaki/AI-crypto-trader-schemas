@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "ohlcv_max_age_minutes": { "type": "integer" },
+    "analysis_log_lookback_days": { "type": "integer" },
+    "analysis_min_interval_hours": { "type": "integer" },
+    "intervals": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "interval_weights": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "top_n_long": { "type": "integer" },
+    "top_n_short": { "type": "integer" },
+    "top_n_extra_ties": { "type": "boolean" },
+    "ohlcv_fetch_limit": { "type": "integer" },
+    "max_append_retries": { "type": "integer" },
+    "task_config": {
+      "type": "object",
+      "properties": {
+        "main": {
+          "$ref": "#/$defs/task"
+        },
+        "top": {
+          "$ref": "#/$defs/task"
+        },
+        "potential": {
+          "$ref": "#/$defs/task"
+        }
+      },
+      "required": ["main", "top", "potential"]
+    },
+    "main_symbols": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "supported_symbols": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "blocked_symbols": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "ohlcv_max_age_minutes",
+    "analysis_log_lookback_days",
+    "analysis_min_interval_hours",
+    "intervals",
+    "interval_weights",
+    "top_n_long",
+    "top_n_short",
+    "top_n_extra_ties",
+    "ohlcv_fetch_limit",
+    "max_append_retries",
+    "task_config",
+    "main_symbols",
+    "supported_symbols",
+    "blocked_symbols"
+  ],
+  "$defs": {
+    "task": {
+      "type": "object",
+      "properties": {
+        "symbol_keys": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "cooldown_minutes": { "type": "integer" },
+        "retry_delay": { "type": "number" },
+        "temp_log": { "type": "string" }
+      },
+      "required": ["symbol_keys", "cooldown_minutes", "retry_delay", "temp_log"]
+    }
+  }
+}
