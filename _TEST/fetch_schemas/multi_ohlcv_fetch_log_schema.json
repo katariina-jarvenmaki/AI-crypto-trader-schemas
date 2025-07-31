@@ -24,13 +24,13 @@
         ".*": {
           "type": "object",
           "properties": {
-            "rsi": { "type": "number" },
-            "ema": { "type": "number" },
-            "macd": { "type": "number" },
-            "macd_signal": { "type": "number" },
-            "bb_upper": { "type": "number" },
-            "bb_lower": { "type": "number" },
-            "close": { "type": "number" }
+            "rsi": { "type": ["number", "null"] },
+            "ema": { "type": ["number", "null"] },
+            "macd": { "type": ["number", "null"] },
+            "macd_signal": { "type": ["number", "null"] },
+            "bb_upper": { "type": ["number", "null"] },
+            "bb_lower": { "type": ["number", "null"] },
+            "close": { "type": ["number", "null"] }
           },
           "required": ["rsi", "ema", "macd", "macd_signal", "bb_upper", "bb_lower", "close"],
           "additionalProperties": false
