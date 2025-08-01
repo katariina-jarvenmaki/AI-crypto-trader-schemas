@@ -1,23 +1,11 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Trading Strategy Configuration",
   "type": "object",
   "properties": {
-    "ohlcv_max_age_minutes": { "type": "integer" },
-    "analysis_log_lookback_days": { "type": "integer" },
-    "analysis_min_interval_hours": { "type": "integer" },
-    "intervals": {
-      "type": "array",
-      "items": { "type": "string" }
-    },
-    "interval_weights": {
-      "type": "object",
-      "additionalProperties": { "type": "number" }
-    },
     "top_n_long": { "type": "integer" },
     "top_n_short": { "type": "integer" },
     "top_n_extra_ties": { "type": "boolean" },
-    "ohlcv_fetch_limit": { "type": "integer" },
-    "max_append_retries": { "type": "integer" },
     "score_filter_threshold_long": { "type": "number" },
     "score_filter_threshold_short": { "type": "number" },
     "scoring_parameters": {
@@ -54,50 +42,27 @@
       },
       "required": ["rsi", "macd", "stoch"]
     },
+    "analysis_min_interval_hours": { "type": "integer" },
+    "intervals": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "interval_weights": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "ohlcv_max_age_minutes": { "type": "integer" },
+    "ohlcv_fetch_limit": { "type": "integer" },
     "task_config": {
       "type": "object",
       "properties": {
-        "main": {
-          "type": "object",
-          "properties": {
-            "symbol_keys": {
-              "type": "array",
-              "items": { "type": "string" }
-            },
-            "cooldown_minutes": { "type": "integer" },
-            "retry_delay": { "type": "number" },
-            "temp_log": { "type": "string" }
-          },
-          "required": ["symbol_keys", "cooldown_minutes", "retry_delay", "temp_log"]
+        "symbol_keys": {
+          "type": "array",
+          "items": { "type": "string" }
         },
-        "top": {
-          "type": "object",
-          "properties": {
-            "symbol_keys": {
-              "type": "array",
-              "items": { "type": "string" }
-            },
-            "cooldown_minutes": { "type": "integer" },
-            "retry_delay": { "type": "number" },
-            "temp_log": { "type": "string" }
-          },
-          "required": ["symbol_keys", "cooldown_minutes", "retry_delay", "temp_log"]
-        },
-        "potential": {
-          "type": "object",
-          "properties": {
-            "symbol_keys": {
-              "type": "array",
-              "items": { "type": "string" }
-            },
-            "cooldown_minutes": { "type": "integer" },
-            "retry_delay": { "type": "number" },
-            "temp_log": { "type": "string" }
-          },
-          "required": ["symbol_keys", "cooldown_minutes", "retry_delay", "temp_log"]
-        }
+        "temp_log": { "type": "string" }
       },
-      "required": ["main", "top", "potential"]
+      "required": ["symbol_keys", "temp_log"]
     },
     "main_symbols": {
       "type": "array",
@@ -113,19 +78,17 @@
     }
   },
   "required": [
-    "ohlcv_max_age_minutes",
-    "analysis_log_lookback_days",
-    "analysis_min_interval_hours",
-    "intervals",
-    "interval_weights",
     "top_n_long",
     "top_n_short",
     "top_n_extra_ties",
-    "ohlcv_fetch_limit",
-    "max_append_retries",
     "score_filter_threshold_long",
     "score_filter_threshold_short",
     "scoring_parameters",
+    "analysis_min_interval_hours",
+    "intervals",
+    "interval_weights",
+    "ohlcv_max_age_minutes",
+    "ohlcv_fetch_limit",
     "task_config",
     "main_symbols",
     "supported_symbols",
