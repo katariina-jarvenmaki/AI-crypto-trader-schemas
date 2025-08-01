@@ -11,27 +11,90 @@
     },
     "interval_weights": {
       "type": "object",
-      "patternProperties": {
-        ".*": { "type": "number" }
-      },
-      "additionalProperties": false
+      "additionalProperties": { "type": "number" }
     },
     "top_n_long": { "type": "integer" },
     "top_n_short": { "type": "integer" },
     "top_n_extra_ties": { "type": "boolean" },
     "ohlcv_fetch_limit": { "type": "integer" },
     "max_append_retries": { "type": "integer" },
+    "score_filter_threshold_long": { "type": "number" },
+    "score_filter_threshold_short": { "type": "number" },
+    "scoring_parameters": {
+      "type": "object",
+      "properties": {
+        "rsi": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "upper": { "type": "number" },
+            "lower": { "type": "number" },
+            "weight": { "type": "number" }
+          },
+          "required": ["enabled", "upper", "lower", "weight"]
+        },
+        "macd": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "weight": { "type": "number" }
+          },
+          "required": ["enabled", "weight"]
+        },
+        "stoch": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "overbought": { "type": "number" },
+            "oversold": { "type": "number" },
+            "weight": { "type": "number" }
+          },
+          "required": ["enabled", "overbought", "oversold", "weight"]
+        }
+      },
+      "required": ["rsi", "macd", "stoch"]
+    },
     "task_config": {
       "type": "object",
       "properties": {
         "main": {
-          "$ref": "#/$defs/task"
+          "type": "object",
+          "properties": {
+            "symbol_keys": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "cooldown_minutes": { "type": "integer" },
+            "retry_delay": { "type": "number" },
+            "temp_log": { "type": "string" }
+          },
+          "required": ["symbol_keys", "cooldown_minutes", "retry_delay", "temp_log"]
         },
         "top": {
-          "$ref": "#/$defs/task"
+          "type": "object",
+          "properties": {
+            "symbol_keys": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "cooldown_minutes": { "type": "integer" },
+            "retry_delay": { "type": "number" },
+            "temp_log": { "type": "string" }
+          },
+          "required": ["symbol_keys", "cooldown_minutes", "retry_delay", "temp_log"]
         },
         "potential": {
-          "$ref": "#/$defs/task"
+          "type": "object",
+          "properties": {
+            "symbol_keys": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "cooldown_minutes": { "type": "integer" },
+            "retry_delay": { "type": "number" },
+            "temp_log": { "type": "string" }
+          },
+          "required": ["symbol_keys", "cooldown_minutes", "retry_delay", "temp_log"]
         }
       },
       "required": ["main", "top", "potential"]
@@ -60,24 +123,12 @@
     "top_n_extra_ties",
     "ohlcv_fetch_limit",
     "max_append_retries",
+    "score_filter_threshold_long",
+    "score_filter_threshold_short",
+    "scoring_parameters",
     "task_config",
     "main_symbols",
     "supported_symbols",
     "blocked_symbols"
-  ],
-  "$defs": {
-    "task": {
-      "type": "object",
-      "properties": {
-        "symbol_keys": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "cooldown_minutes": { "type": "integer" },
-        "retry_delay": { "type": "number" },
-        "temp_log": { "type": "string" }
-      },
-      "required": ["symbol_keys", "cooldown_minutes", "retry_delay", "temp_log"]
-    }
-  }
+  ]
 }
