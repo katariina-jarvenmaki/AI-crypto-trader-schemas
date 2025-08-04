@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Trading Strategy Configuration",
+  "type": "object",
+  "properties": {
+    "top_n_long": { "type": "integer" },
+    "top_n_short": { "type": "integer" },
+    "top_n_extra_ties": { "type": "boolean" },
+    "score_filter_threshold_long": { "type": "number" },
+    "score_filter_threshold_short": { "type": "number" },
+    "scoring_parameters": {
+      "type": "object",
+      "properties": {
+        "rsi": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "upper": { "type": "number" },
+            "lower": { "type": "number" },
+            "weight": { "type": "number" }
+          },
+          "required": ["enabled", "upper", "lower", "weight"]
+        },
+        "macd": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "weight": { "type": "number" }
+          },
+          "required": ["enabled", "weight"]
+        },
+        "stoch": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "overbought": { "type": "number" },
+            "oversold": { "type": "number" },
+            "weight": { "type": "number" }
+          },
+          "required": ["enabled", "overbought", "oversold", "weight"]
+        }
+      },
+      "required": ["rsi", "macd", "stoch"]
+    },
+    "analysis_min_interval_hours": { "type": "integer" },
+    "intervals": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "interval_weights": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    },
+    "ohlcv_max_age_minutes": { "type": "integer" },
+    "ohlcv_fetch_limit": { "type": "integer" },
+    "task_config": {
+      "type": "object",
+      "properties": {
+        "symbol_keys": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "temp_log": { "type": "string" }
+      },
+      "required": ["symbol_keys", "temp_log"]
+    },
+    "main_symbols": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "supported_symbols": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "blocked_symbols": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "top_n_long",
+    "top_n_short",
+    "top_n_extra_ties",
+    "score_filter_threshold_long",
+    "score_filter_threshold_short",
+    "scoring_parameters",
+    "analysis_min_interval_hours",
+    "intervals",
+    "interval_weights",
+    "ohlcv_max_age_minutes",
+    "ohlcv_fetch_limit",
+    "task_config",
+    "main_symbols",
+    "supported_symbols",
+    "blocked_symbols"
+  ]
+}

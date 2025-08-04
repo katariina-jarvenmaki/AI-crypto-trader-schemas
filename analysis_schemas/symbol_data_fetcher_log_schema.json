@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "potential_both_ways": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "potential_to_long": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "potential_to_short": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "required": ["timestamp", "potential_both_ways", "potential_to_long", "potential_to_short"]
+}

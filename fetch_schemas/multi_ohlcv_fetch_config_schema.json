@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "exchange_priority": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["okx", "kucoin", "binance", "bybit"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "fetch_functions": {
+      "type": "object",
+      "properties": {
+        "okx": { "type": "string" },
+        "kucoin": { "type": "string" },
+        "binance": { "type": "string" },
+        "bybit": { "type": "string" }
+      },
+      "required": ["okx", "kucoin", "binance", "bybit"],
+      "additionalProperties": false
+    },
+    "fetch_retry": {
+      "type": "object",
+      "properties": {
+        "max_retries": { "type": "integer", "minimum": 0 },
+        "retry_delay": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["max_retries", "retry_delay"],
+      "additionalProperties": false
+    },
+    "required_analysis_keys": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "log_cleaner": {
+      "type": "object",
+      "properties": {
+        "max_log_size_mb": { "type": "integer", "minimum": 0 },
+        "entries_to_keep": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["max_log_size_mb", "entries_to_keep"],
+      "additionalProperties": false
+    },
+    "intervals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "1d", "1w"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "ohlcv_limit": { "type": "integer", "minimum": 1 },
+    "binance_base_url": { "type": "string", "format": "uri" },
+    "bybit_base_url": { "type": "string", "format": "uri" },
+    "kucoin_base_url": { "type": "string", "format": "uri" },
+    "okx_base_url": { "type": "string", "format": "uri" },
+    "interval_map_bybit": {
+      "type": "object",
+      "properties": {
+        "1m": { "type": "string" },
+        "3m": { "type": "string" },
+        "5m": { "type": "string" },
+        "15m": { "type": "string" },
+        "30m": { "type": "string" },
+        "1h": { "type": "string" },
+        "2h": { "type": "string" },
+        "4h": { "type": "string" },
+        "1d": { "type": "string" },
+        "1w": { "type": "string" }
+      },
+      "required": ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "1d", "1w"],
+      "additionalProperties": false
+    },
+    "interval_map_kucoin": {
+      "type": "object",
+      "properties": {
+        "1m": { "type": "string" },
+        "3m": { "type": "string" },
+        "5m": { "type": "string" },
+        "15m": { "type": "string" },
+        "30m": { "type": "string" },
+        "1h": { "type": "string" },
+        "2h": { "type": "string" },
+        "4h": { "type": "string" },
+        "1d": { "type": "string" },
+        "1w": { "type": "string" }
+      },
+      "required": ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "1d", "1w"],
+      "additionalProperties": false
+    },
+    "interval_map_okx": {
+      "type": "object",
+      "properties": {
+        "1m": { "type": "string" },
+        "3m": { "type": "string" },
+        "5m": { "type": "string" },
+        "15m": { "type": "string" },
+        "30m": { "type": "string" },
+        "1h": { "type": "string" },
+        "2h": { "type": "string" },
+        "4h": { "type": "string" },
+        "1d": { "type": "string" },
+        "1w": { "type": "string" }
+      },
+      "required": ["1m", "3m", "5m", "15m", "30m", "1h", "2h", "4h", "1d", "1w"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "exchange_priority",
+    "fetch_functions",
+    "fetch_retry",
+    "required_analysis_keys",
+    "log_cleaner",
+    "intervals",
+    "ohlcv_limit",
+    "binance_base_url",
+    "bybit_base_url",
+    "kucoin_base_url",
+    "okx_base_url",
+    "interval_map_bybit",
+    "interval_map_kucoin",
+    "interval_map_okx"
+  ],
+  "additionalProperties": false
+}

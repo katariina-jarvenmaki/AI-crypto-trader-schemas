@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_exchange": {
+      "type": "string"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "intervals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "data_preview": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "properties": {
+            "rsi": { "type": ["number", "null"] },
+            "ema": { "type": ["number", "null"] },
+            "macd": { "type": ["number", "null"] },
+            "macd_signal": { "type": ["number", "null"] },
+            "bb_upper": { "type": ["number", "null"] },
+            "bb_lower": { "type": ["number", "null"] },
+            "close": { "type": ["number", "null"] }
+          },
+          "required": ["rsi", "ema", "macd", "macd_signal", "bb_upper", "bb_lower", "close"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "limit": {
+      "type": "integer"
+    },
+    "start_time": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "end_time": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    }
+  },
+  "required": ["timestamp", "source_exchange", "symbol", "intervals", "data_preview", "limit", "start_time", "end_time"],
+  "additionalProperties": false
+}
