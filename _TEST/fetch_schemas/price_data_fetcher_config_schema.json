@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Price Data Fetcher Config Schema",
+  "type": "object",
+  "required": ["paths", "settings"],
+  "properties": {
+    "paths": {
+      "type": "object",
+      "required": ["logs_from_general_config"],
+      "properties": {
+        "logs_from_general_config": {
+          "type": "object",
+          "required": ["symbol_data", "price_data"],
+          "properties": {
+            "symbol_data": {
+              "type": "string",
+              "description": "Identifier for symbol data log path, typically a module or component name."
+            },
+            "price_data": {
+              "type": "string",
+              "description": "Identifier for price data log path, typically a module or component name."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "settings": {
+      "type": "object",
+      "required": ["symbol_to_use", "exchange_priority", "max_log_lines"],
+      "properties": {
+        "symbol_to_use": {
+          "type": "string",
+          "description": "Specifies which symbols to use, e.g., 'all_symbols'."
+        },
+        "exchange_priority": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "description": "List of preferred exchanges in order of priority."
+        },
+        "max_log_lines": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum number of lines to keep in the log."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
