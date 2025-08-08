@@ -1,55 +1,64 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Price Data Fetcher Config Schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "required": ["paths", "settings"],
   "properties": {
     "paths": {
       "type": "object",
-      "required": ["logs_from_general_config"],
       "properties": {
         "logs_from_general_config": {
           "type": "object",
-          "required": ["symbol_data", "price_data"],
           "properties": {
-            "symbol_data": {
-              "type": "string",
-              "description": "Identifier for symbol data log path, typically a module or component name."
-            },
-            "price_data": {
-              "type": "string",
-              "description": "Identifier for price data log path, typically a module or component name."
-            }
+            "symbol_data": { "type": "string" },
+            "price_data": { "type": "string" }
           },
+          "required": ["symbol_data", "price_data"],
           "additionalProperties": false
         }
       },
+      "required": ["logs_from_general_config"],
       "additionalProperties": false
     },
     "settings": {
       "type": "object",
-      "required": ["symbol_to_use", "exchange_priority", "max_log_lines"],
       "properties": {
-        "symbol_to_use": {
-          "type": "string",
-          "description": "Specifies which symbols to use, e.g., 'all_symbols'."
-        },
-        "exchange_priority": {
+        "symbol_to_use": { "type": "string" },
+        "exchange_order": {
           "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1,
-          "description": "List of preferred exchanges in order of priority."
+          "items": { "type": "string" }
         },
-        "max_log_lines": {
-          "type": "integer",
-          "minimum": 1,
-          "description": "Maximum number of lines to keep in the log."
-        }
+        "max_log_lines": { "type": "integer" }
       },
+      "required": ["symbol_to_use", "exchange_order", "max_log_lines"],
       "additionalProperties": false
+    },
+    "okx": {
+      "$ref": "#/definitions/exchangeConfig"
+    },
+    "kucoin": {
+      "$ref": "#/definitions/exchangeConfig"
+    },
+    "binance": {
+      "$ref": "#/definitions/exchangeConfig"
+    },
+    "bybit": {
+      "$ref": "#/definitions/exchangeConfig"
     }
   },
-  "additionalProperties": false
+  "required": ["paths", "settings", "okx", "kucoin", "binance", "bybit"],
+  "additionalProperties": false,
+  "definitions": {
+    "exchangeConfig": {
+      "type": "object",
+      "properties": {
+        "base_url": { "type": "string", "format": "uri" },
+        "quote_assets": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "timeout": { "type": "integer" }
+      },
+      "required": ["base_url", "quote_assets", "timeout"],
+      "additionalProperties": false
+    }
+  }
 }
