@@ -1,45 +1,48 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "PriceDataLogEntry",
-  "type": "object",
-  "properties": {
-    "timestamp": {
-      "type": "string",
-      "format": "date-time",
-      "description": "Timestamp in ISO 8601 format with timezone offset"
-    },
-    "source_exchange": {
-      "type": "string",
-      "description": "Name of the exchange the data was fetched from"
-    },
-    "symbol": {
-      "type": "string",
-      "description": "Trading pair symbol, e.g., BTCUSDT"
-    },
-    "data_preview": {
-      "type": "object",
-      "properties": {
-        "last_price": { "type": "number" },
-        "price_change_percent": { "type": "number" },
-        "high_price": { "type": "number" },
-        "low_price": { "type": "number" },
-        "volume": { "type": "number" },
-        "turnover": { "type": "number" }
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "timestamp": {
+        "type": "string",
+        "format": "date-time"
       },
-      "required": [
-        "last_price",
-        "price_change_percent",
-        "high_price",
-        "low_price",
-        "volume",
-        "turnover"
-      ]
-    }
-  },
-  "required": [
-    "timestamp",
-    "source_exchange",
-    "symbol",
-    "data_preview"
-  ]
+      "source_exchange": {
+        "type": "string"
+      },
+      "symbol": {
+        "type": "string"
+      },
+      "last_price": {
+        "type": "string"
+      },
+      "price_change_percent": {
+        "type": "number"
+      },
+      "high_price": {
+        "type": "string"
+      },
+      "low_price": {
+        "type": "string"
+      },
+      "volume": {
+        "type": "string"
+      },
+      "turnover": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "timestamp",
+      "source_exchange",
+      "symbol",
+      "last_price",
+      "price_change_percent",
+      "high_price",
+      "low_price",
+      "volume",
+      "turnover"
+    ],
+    "additionalProperties": false
+  }
 }
