@@ -1,0 +1,48 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "timestamp": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "source_exchange": {
+        "type": "string"
+      },
+      "symbol": {
+        "type": "string"
+      },
+      "last_price": {
+        "type": "string"
+      },
+      "price_change_percent": {
+        "type": "number"
+      },
+      "high_price": {
+        "type": "string"
+      },
+      "low_price": {
+        "type": "string"
+      },
+      "volume": {
+        "type": "string"
+      },
+      "turnover": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "timestamp",
+      "source_exchange",
+      "symbol",
+      "last_price",
+      "price_change_percent",
+      "high_price",
+      "low_price",
+      "volume",
+      "turnover"
+    ],
+    "additionalProperties": false
+  }
+}
