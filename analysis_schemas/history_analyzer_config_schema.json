@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Crypto Trader Config",
+  "type": "object",
+  "properties": {
+    "intervals_to_use": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(\\d+[hmwd])$" }
+    }
+  },
+  "required": [
+    "intervals_to_use"
+  ],
+  "additionalProperties": false
+}

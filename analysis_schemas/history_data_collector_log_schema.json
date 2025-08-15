@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Symbol Data Collection Map",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "timestamp": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "symbol": {
+        "type": "string"
+      },
+      "rsi": {
+        "type": "object",
+        "additionalProperties": { "type": ["number", "null"] }
+      },
+      "ema": {
+        "type": "object",
+        "additionalProperties": { "type": ["number", "null"] }
+      },
+      "macd": {
+        "type": "object",
+        "additionalProperties": { "type": ["number", "null"] }
+      },
+      "macd_signal": {
+        "type": "object",
+        "additionalProperties": { "type": ["number", "null"] }
+      },
+      "bb_upper": {
+        "type": "object",
+        "additionalProperties": { "type": ["number", "null"] }
+      },
+      "bb_lower": {
+        "type": "object",
+        "additionalProperties": { "type": ["number", "null"] }
+      },
+      "price": {
+        "type": "string"
+      },
+      "change_24h": {
+        "type": "number"
+      },
+      "high_price": {
+        "type": "string"
+      },
+      "low_price": {
+        "type": "string"
+      },
+      "volume": {
+        "type": "string"
+      },
+      "turnover": {
+        "type": "string"
+      },
+      "intervals": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "interval_data": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "rsi": { "type": ["number", "null"] },
+            "ema": { "type": ["number", "null"] },
+            "macd": { "type": ["number", "null"] },
+            "macd_signal": { "type": ["number", "null"] },
+            "bb_upper": { "type": ["number", "null"] },
+            "bb_lower": { "type": ["number", "null"] },
+            "close": { "type": ["number", "null"] }
+          },
+          "required": [
+            "rsi",
+            "ema",
+            "macd",
+            "macd_signal",
+            "bb_upper",
+            "bb_lower",
+            "close"
+          ]
+        }
+      }
+    },
+    "required": [
+      "timestamp",
+      "symbol",
+      "rsi",
+      "ema",
+      "macd",
+      "macd_signal",
+      "bb_upper",
+      "bb_lower",
+      "price",
+      "change_24h",
+      "high_price",
+      "low_price",
+      "volume",
+      "turnover",
+      "intervals",
+      "interval_data"
+    ]
+  }
+}
