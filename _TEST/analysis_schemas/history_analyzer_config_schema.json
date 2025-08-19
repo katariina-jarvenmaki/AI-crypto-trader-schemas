@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "History Data Collector Config",
   "type": "object",
   "properties": {
     "history_data_collector": {
@@ -10,10 +9,10 @@
           "type": "array",
           "items": {
             "type": "string",
-            "enum": ["1m", "5m", "15m", "30m", "1h", "4h", "1d", "1w", "1M"]
-          },
-          "minItems": 1
+            "enum": ["1h", "4h", "1d", "1w"]
+          }
         },
+        "max_age_minutes": { "type": "integer", "minimum": 1 },
         "configs_and_logs": {
           "type": "array",
           "items": {
@@ -26,21 +25,69 @@
               "extension": { "type": "string" },
               "return": {
                 "type": "array",
-                "items": { "type": "string" },
-                "minItems": 1
-              },
-              "max_age_minutes": { "type": "integer", "minimum": 0 }
+                "items": { "type": "string" }
+              }
             },
-            "required": ["key", "name", "mid_folder", "module_key", "extension", "return", "max_age_minutes"],
-            "additionalProperties": false
-          },
-          "minItems": 1
+            "required": ["key", "name", "mid_folder", "module_key", "extension", "return"]
+          }
         }
       },
-      "required": ["intervals_to_use", "configs_and_logs"],
-      "additionalProperties": false
+      "required": ["intervals_to_use", "max_age_minutes", "configs_and_logs"]
+    },
+    "history_analyzer": {
+      "type": "object",
+      "properties": {
+        "min_age_minutes": { "type": "integer", "minimum": 0 },
+        "max_age_minutes": { "type": "integer", "minimum": 1 },
+        "configs_and_logs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "key": { "type": "string" },
+              "name": { "type": "string" },
+              "mid_folder": { "type": "string" },
+              "module_key": { "type": "string" },
+              "extension": { "type": "string" },
+              "return": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            },
+            "required": ["key", "name", "mid_folder", "module_key", "extension", "return"]
+          }
+        },
+        "analysis_thresholds": {
+          "type": "object",
+          "properties": {
+            "ema_trend_percent": { "type": "number" },
+            "turnover_deviation": { "type": "number" },
+            "rsi_flag_delta": { "type": "number" },
+            "bollinger_mode": {
+              "type": "string",
+              "enum": ["strict", "loose"]
+            },
+            "_comment_to_bollinger_mode": { "type": "string" },
+            "signal_strength_rules": {
+              "type": "object",
+              "properties": {
+                "very_strong_bullish": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "very_strong_bearish": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              },
+              "required": ["very_strong_bullish", "very_strong_bearish"]
+            }
+          },
+          "required": ["ema_trend_percent", "turnover_deviation", "rsi_flag_delta", "bollinger_mode", "signal_strength_rules"]
+        }
+      },
+      "required": ["min_age_minutes", "max_age_minutes", "configs_and_logs", "analysis_thresholds"]
     }
   },
-  "required": ["history_data_collector"],
-  "additionalProperties": false
+  "required": ["history_data_collector", "history_analyzer"]
 }
