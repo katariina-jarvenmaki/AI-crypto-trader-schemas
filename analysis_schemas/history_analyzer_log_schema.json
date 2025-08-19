@@ -7,97 +7,93 @@
     "properties": {
       "symbol": {
         "type": "string",
-        "description": "Trading pair symbol (e.g., ZECUSDT)"
+        "description": "Trading pair symbol, e.g. BTCUSDT"
       },
       "timestamp": {
         "type": "string",
         "format": "date-time",
-        "description": "Timestamp of the data point"
+        "description": "ISO 8601 timestamp"
       },
       "price": {
-        "type": "number",
-        "description": "Latest price"
+        "type": ["number", "string", "null"],
+        "description": "Current price"
       },
       "price_change": {
-        "type": ["number", "null"],
-        "description": "Absolute price change since last period"
+        "type": ["number", "string", "null"],
+        "description": "Absolute price change"
       },
       "price_change_percent": {
-        "type": ["number", "null"],
-        "description": "Price change in percentage"
+        "type": ["number", "string", "null"],
+        "description": "Percentage price change"
       },
-      "avg_rsi_all": {
-        "type": "number",
-        "description": "Average RSI across periods"
+      "avg_rsi": {
+        "type": ["number", "string", "null"],
+        "description": "Average RSI value"
       },
       "rsi_change": {
-        "type": ["number", "null"],
+        "type": ["number", "string", "null"],
         "description": "Absolute RSI change"
       },
       "rsi_change_percent": {
-        "type": ["number", "null"],
-        "description": "RSI change in percentage"
+        "type": ["number", "string", "null"],
+        "description": "Percentage RSI change"
       },
-      "rsi_delta": {
-        "type": ["number", "null"],
-        "description": "Difference between RSI and EMA RSI"
+      "avg_ema": {
+        "type": ["number", "string", "null"],
+        "description": "Average EMA value"
       },
-      "ema_rsi": {
-        "type": "number",
-        "description": "Exponential moving average of RSI"
+      "ema_change": {
+        "type": ["number", "string", "null"],
+        "description": "Absolute EMA change"
       },
-      "ema_rsi_change": {
-        "type": ["number", "null"],
-        "description": "Absolute EMA RSI change"
+      "ema_change_percent": {
+        "type": ["number", "string", "null"],
+        "description": "Percentage EMA change"
       },
-      "ema_rsi_change_percent": {
-        "type": ["number", "null"],
-        "description": "EMA RSI change in percentage"
+      "avg_macd": {
+        "type": ["number", "string", "null"],
+        "description": "Average MACD value"
       },
-      "macd_diff": {
-        "type": "number",
-        "description": "MACD histogram value (difference of MACD and Signal line)"
+      "macd_change": {
+        "type": ["number", "string", "null"],
+        "description": "Absolute MACD change"
       },
-      "macd_diff_change": {
-        "type": ["number", "null"],
-        "description": "Absolute MACD difference change"
-      },
-      "macd_diff_change_percent": {
-        "type": ["number", "null"],
-        "description": "MACD diff change in percentage"
-      },
-      "macd_trend": {
-        "type": "string",
-        "enum": ["bullish", "bearish", "neutral"],
-        "description": "MACD trend direction"
-      },
-      "bollinger_status": {
-        "type": "string",
-        "enum": ["neutral", "overbought", "oversold"],
-        "description": "Bollinger Band status"
+      "macd_change_percent": {
+        "type": ["number", "string", "null"],
+        "description": "Percentage MACD change"
       },
       "ema_trend": {
         "type": "string",
         "enum": ["strong_above", "strong_below", "neutral", "near_ema"],
-        "description": "Trend based on EMA levels"
+        "description": "Trend direction based on EMA"
+      },
+      "macd_trend": {
+        "type": "string",
+        "enum": ["up", "down", "neutral"],
+        "description": "Trend direction based on MACD"
+      },
+      "bollinger_status": {
+        "type": "string",
+        "enum": ["oversold", "overbought", "neutral"],
+        "description": "Position relative to Bollinger Bands"
       },
       "signal_strength": {
-        "type": ["number", "null"],
-        "description": "Signal confidence level"
+        "type": ["string", "null"],
+        "description": "Strength of trading signal"
       },
       "flag": {
         "type": ["string", "null"],
-        "description": "Special flag or event marker"
+        "description": "Special market flag or alert"
       },
       "turnover_status": {
         "type": ["string", "null"],
-        "description": "Liquidity or turnover status"
+        "description": "Market turnover status"
       },
       "rsi_divergence": {
         "type": ["string", "null"],
-        "description": "RSI divergence status"
+        "description": "RSI divergence signal"
       }
     },
-    "required": ["symbol", "timestamp", "price", "avg_rsi_all", "ema_rsi", "macd_diff", "macd_trend", "bollinger_status", "ema_trend"]
+    "required": ["symbol", "timestamp", "price", "avg_rsi", "avg_ema", "avg_macd", "ema_trend", "macd_trend", "bollinger_status"]
   }
 }
