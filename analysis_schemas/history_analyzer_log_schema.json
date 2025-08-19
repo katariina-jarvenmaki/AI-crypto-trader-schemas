@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CryptoIndicators",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "symbol": {
+        "type": "string",
+        "description": "Trading pair symbol (e.g., ZECUSDT)"
+      },
+      "timestamp": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Timestamp of the data point"
+      },
+      "price": {
+        "type": "number",
+        "description": "Latest price"
+      },
+      "price_change": {
+        "type": ["number", "null"],
+        "description": "Absolute price change since last period"
+      },
+      "price_change_percent": {
+        "type": ["number", "null"],
+        "description": "Price change in percentage"
+      },
+      "avg_rsi_all": {
+        "type": "number",
+        "description": "Average RSI across periods"
+      },
+      "rsi_change": {
+        "type": ["number", "null"],
+        "description": "Absolute RSI change"
+      },
+      "rsi_change_percent": {
+        "type": ["number", "null"],
+        "description": "RSI change in percentage"
+      },
+      "rsi_delta": {
+        "type": ["number", "null"],
+        "description": "Difference between RSI and EMA RSI"
+      },
+      "ema_rsi": {
+        "type": "number",
+        "description": "Exponential moving average of RSI"
+      },
+      "ema_rsi_change": {
+        "type": ["number", "null"],
+        "description": "Absolute EMA RSI change"
+      },
+      "ema_rsi_change_percent": {
+        "type": ["number", "null"],
+        "description": "EMA RSI change in percentage"
+      },
+      "macd_diff": {
+        "type": "number",
+        "description": "MACD histogram value (difference of MACD and Signal line)"
+      },
+      "macd_diff_change": {
+        "type": ["number", "null"],
+        "description": "Absolute MACD difference change"
+      },
+      "macd_diff_change_percent": {
+        "type": ["number", "null"],
+        "description": "MACD diff change in percentage"
+      },
+      "macd_trend": {
+        "type": "string",
+        "enum": ["bullish", "bearish", "neutral"],
+        "description": "MACD trend direction"
+      },
+      "bollinger_status": {
+        "type": "string",
+        "enum": ["neutral", "overbought", "oversold"],
+        "description": "Bollinger Band status"
+      },
+      "ema_trend": {
+        "type": "string",
+        "enum": ["strong_above", "strong_below", "neutral", "near_ema"],
+        "description": "Trend based on EMA levels"
+      },
+      "signal_strength": {
+        "type": ["number", "null"],
+        "description": "Signal confidence level"
+      },
+      "flag": {
+        "type": ["string", "null"],
+        "description": "Special flag or event marker"
+      },
+      "turnover_status": {
+        "type": ["string", "null"],
+        "description": "Liquidity or turnover status"
+      },
+      "rsi_divergence": {
+        "type": ["string", "null"],
+        "description": "RSI divergence status"
+      }
+    },
+    "required": ["symbol", "timestamp", "price", "avg_rsi_all", "ema_rsi", "macd_diff", "macd_trend", "bollinger_status", "ema_trend"]
+  }
+}

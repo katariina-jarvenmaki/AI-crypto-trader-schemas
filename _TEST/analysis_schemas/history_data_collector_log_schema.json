@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CryptoIndicators",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "symbol": {
+      "type": "string"
+    },
+    "rsi": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": ["number", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "ema": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": ["number", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "macd": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": ["number", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "macd_signal": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": ["number", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "bb_upper": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": ["number", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "bb_lower": {
+      "type": "object",
+      "patternProperties": {
+        ".*": { "type": ["number", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "fetched": {
+      "type": "object",
+      "properties": {
+        "price": { "type": "string" },
+        "change_24h": { "type": ["number", "null"] },
+        "high_price": { "type": "string" },
+        "low_price": { "type": "string" },
+        "volume": { "type": "string" },
+        "turnover": { "type": "string" },
+        "intervals": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "interval_data": {
+          "type": "object",
+          "patternProperties": {
+            ".*": {
+              "type": "object",
+              "properties": {
+                "rsi": { "type": ["number", "null"] },
+                "ema": { "type": ["number", "null"] },
+                "macd": { "type": ["number", "null"] },
+                "macd_signal": { "type": ["number", "null"] },
+                "bb_upper": { "type": ["number", "null"] },
+                "bb_lower": { "type": ["number", "null"] },
+                "close": { "type": ["number", "null"] }
+              },
+              "required": ["rsi", "ema", "macd", "macd_signal", "bb_upper", "bb_lower", "close"],
+              "additionalProperties": false
+            }
+          }
+        }
+      },
+      "required": [
+        "price",
+        "change_24h",
+        "high_price",
+        "low_price",
+        "volume",
+        "turnover",
+        "intervals",
+        "interval_data"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "timestamp",
+    "symbol",
+    "rsi",
+    "ema",
+    "macd",
+    "macd_signal",
+    "bb_upper",
+    "bb_lower",
+    "fetched"
+  ],
+  "additionalProperties": false
+}
