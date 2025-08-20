@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "broad-sentiment": {
+      "type": "object",
+      "properties": {
+        "state": { "type": "string" },
+        "bias": { "type": "number" },
+        "avg_score": { "type": "number" },
+        "volatility": { "type": "number" },
+        "coins_counted": { "type": "integer" },
+        "entries_counted": { "type": "integer" }
+      },
+      "required": ["state", "bias", "avg_score", "volatility", "coins_counted", "entries_counted"]
+    },
+    "hour-sentiment": {
+      "type": "object",
+      "properties": {
+        "state": { "type": "string" },
+        "bias": { "type": "number" },
+        "avg_score": { "type": "number" },
+        "volatility": { "type": "number" },
+        "coins_counted": { "type": "integer" },
+        "entries_counted": { "type": "integer" }
+      },
+      "required": ["state", "bias", "avg_score", "volatility", "coins_counted", "entries_counted"]
+    },
+    "trend-reversal": {
+      "type": "object",
+      "properties": {
+        "combined_bias": { "type": "number" },
+        "found": { "type": "boolean" },
+        "event": { "type": ["string", "null"] }
+      },
+      "required": ["combined_bias", "found", "event"]
+    }
+  },
+  "required": ["timestamp", "broad-sentiment", "hour-sentiment", "trend-reversal"]
+}
