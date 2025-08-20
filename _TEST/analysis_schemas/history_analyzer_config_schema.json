@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "History Processing Config Schema",
+  "title": "History Config Schema",
   "type": "object",
   "properties": {
     "history_data_collector": {
@@ -60,7 +60,7 @@
           "properties": {
             "ema_trend_percent": { "type": "number" },
             "turnover_deviation": { "type": "number" },
-            "rsi_flag_delta": { "type": "integer" },
+            "rsi_flag_delta": { "type": "number" },
             "bollinger_mode": { "type": "string", "enum": ["strict", "loose"] },
             "_comment_to_bollinger_mode": { "type": "string" },
             "signal_strength_rules": {
@@ -78,13 +78,7 @@
               "required": ["very_strong_bullish", "very_strong_bearish"]
             }
           },
-          "required": [
-            "ema_trend_percent",
-            "turnover_deviation",
-            "rsi_flag_delta",
-            "bollinger_mode",
-            "signal_strength_rules"
-          ]
+          "required": ["ema_trend_percent", "turnover_deviation", "rsi_flag_delta", "bollinger_mode", "signal_strength_rules"]
         }
       },
       "required": ["min_age_minutes", "max_age_minutes", "configs_and_logs", "analysis_thresholds"]
@@ -101,7 +95,9 @@
             },
             "result_keys": {
               "type": "object",
-              "additionalProperties": { "type": "string" }
+              "patternProperties": {
+                ".*": { "type": "string" }
+              }
             },
             "max_age_hours": { "type": "integer" }
           },
@@ -116,9 +112,9 @@
                 "macd": {
                   "type": "object",
                   "properties": {
-                    "bullish": { "type": "number" },
-                    "bearish": { "type": "number" },
-                    "neutral": { "type": "number" }
+                    "bullish": { "type": "integer" },
+                    "bearish": { "type": "integer" },
+                    "neutral": { "type": "integer" }
                   },
                   "required": ["bullish", "bearish", "neutral"]
                 },
@@ -131,13 +127,7 @@
                     "weak_below": { "type": "number" },
                     "neutral": { "type": "number" }
                   },
-                  "required": [
-                    "strong_above",
-                    "weak_above",
-                    "strong_below",
-                    "weak_below",
-                    "neutral"
-                  ]
+                  "required": ["strong_above", "weak_above", "strong_below", "weak_below", "neutral"]
                 },
                 "bollinger": {
                   "type": "object",
@@ -154,31 +144,17 @@
             "rsi_rules": {
               "type": "object",
               "properties": {
-                "period": { "type": "string" },
-                "overbought_threshold": { "type": "integer" },
-                "oversold_threshold": { "type": "integer" },
+                "overbought_threshold": { "type": "number" },
+                "oversold_threshold": { "type": "number" },
                 "weight_overbought": { "type": "number" },
                 "weight_oversold": { "type": "number" }
               },
-              "required": [
-                "period",
-                "overbought_threshold",
-                "oversold_threshold",
-                "weight_overbought",
-                "weight_oversold"
-              ]
+              "required": ["overbought_threshold", "oversold_threshold", "weight_overbought", "weight_oversold"]
             },
             "bias_normalization_divisor": { "type": "number" },
-            "market_state_threshold": { "type": "number" },
-            "volume_mode": { "type": "string" }
+            "market_state_threshold": { "type": "number" }
           },
-          "required": [
-            "weights",
-            "rsi_rules",
-            "bias_normalization_divisor",
-            "market_state_threshold",
-            "volume_mode"
-          ]
+          "required": ["weights", "rsi_rules", "bias_normalization_divisor", "market_state_threshold"]
         },
         "trend_reversal": {
           "type": "object",
@@ -207,18 +183,9 @@
                 "lookback_minutes": { "type": "integer" }
               },
               "required": ["metric", "threshold", "direction", "lookback_minutes"]
-            },
-            "result_keys": {
-              "type": "object",
-              "properties": {
-                "combined_bias": { "type": "string" },
-                "found": { "type": "string" },
-                "event": { "type": "string" }
-              },
-              "required": ["combined_bias", "found", "event"]
             }
           },
-          "required": ["combine_bias", "trend_shift", "result_keys"]
+          "required": ["combine_bias", "trend_shift"]
         }
       },
       "required": ["main", "compute_bias", "trend_reversal"]
