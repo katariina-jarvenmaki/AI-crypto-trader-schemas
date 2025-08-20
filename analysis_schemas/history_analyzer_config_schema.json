@@ -170,14 +170,14 @@
             },
             "bias_normalization_divisor": { "type": "number" },
             "market_state_threshold": { "type": "number" },
-            "volatility_mode": { "type": "string" }
+            "volume_mode": { "type": "string" }
           },
           "required": [
             "weights",
             "rsi_rules",
             "bias_normalization_divisor",
             "market_state_threshold",
-            "volatility_mode"
+            "volume_mode"
           ]
         },
         "trend_reversal": {

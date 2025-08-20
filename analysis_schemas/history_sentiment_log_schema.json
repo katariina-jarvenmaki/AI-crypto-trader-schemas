@@ -12,11 +12,11 @@
         "state": { "type": "string" },
         "bias": { "type": "number" },
         "avg_score": { "type": "number" },
-        "volatility": { "type": "number" },
+        "volume": { "type": "number" },
         "coins_counted": { "type": "integer" },
         "entries_counted": { "type": "integer" }
       },
-      "required": ["state", "bias", "avg_score", "volatility", "coins_counted", "entries_counted"]
+      "required": ["state", "bias", "avg_score", "volume", "coins_counted", "entries_counted"]
     },
     "hour-sentiment": {
       "type": "object",
@@ -24,11 +24,11 @@
         "state": { "type": "string" },
         "bias": { "type": "number" },
         "avg_score": { "type": "number" },
-        "volatility": { "type": "number" },
+        "volume": { "type": "number" },
         "coins_counted": { "type": "integer" },
         "entries_counted": { "type": "integer" }
       },
-      "required": ["state", "bias", "avg_score", "volatility", "coins_counted", "entries_counted"]
+      "required": ["state", "bias", "avg_score", "volume", "coins_counted", "entries_counted"]
     },
     "trend-reversal": {
       "type": "object",
