@@ -64,7 +64,7 @@
       },
       "ema_trend": {
         "type": "string",
-        "enum": ["strong_above", "strong_below", "neutral", "near_ema"],
+        "enum": ["strong_above", "strong_below", "neutral", "near_ema", "unknown"],
         "description": "Trend direction based on EMA"
       },
       "macd_trend": {
