@@ -1,5 +1,6 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "History Processing Config Schema",
   "type": "object",
   "properties": {
     "history_data_collector": {
@@ -7,12 +8,9 @@
       "properties": {
         "intervals_to_use": {
           "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["1h", "4h", "1d", "1w"]
-          }
+          "items": { "type": "string" }
         },
-        "max_age_minutes": { "type": "integer", "minimum": 1 },
+        "max_age_minutes": { "type": "integer" },
         "configs_and_logs": {
           "type": "array",
           "items": {
@@ -37,8 +35,8 @@
     "history_analyzer": {
       "type": "object",
       "properties": {
-        "min_age_minutes": { "type": "integer", "minimum": 0 },
-        "max_age_minutes": { "type": "integer", "minimum": 1 },
+        "min_age_minutes": { "type": "integer" },
+        "max_age_minutes": { "type": "integer" },
         "configs_and_logs": {
           "type": "array",
           "items": {
@@ -62,11 +60,8 @@
           "properties": {
             "ema_trend_percent": { "type": "number" },
             "turnover_deviation": { "type": "number" },
-            "rsi_flag_delta": { "type": "number" },
-            "bollinger_mode": {
-              "type": "string",
-              "enum": ["strict", "loose"]
-            },
+            "rsi_flag_delta": { "type": "integer" },
+            "bollinger_mode": { "type": "string", "enum": ["strict", "loose"] },
             "_comment_to_bollinger_mode": { "type": "string" },
             "signal_strength_rules": {
               "type": "object",
@@ -83,11 +78,151 @@
               "required": ["very_strong_bullish", "very_strong_bearish"]
             }
           },
-          "required": ["ema_trend_percent", "turnover_deviation", "rsi_flag_delta", "bollinger_mode", "signal_strength_rules"]
+          "required": [
+            "ema_trend_percent",
+            "turnover_deviation",
+            "rsi_flag_delta",
+            "bollinger_mode",
+            "signal_strength_rules"
+          ]
         }
       },
       "required": ["min_age_minutes", "max_age_minutes", "configs_and_logs", "analysis_thresholds"]
+    },
+    "history_sentiment": {
+      "type": "object",
+      "properties": {
+        "main": {
+          "type": "object",
+          "properties": {
+            "bias_time_windows_hours": {
+              "type": "array",
+              "items": { "type": "number" }
+            },
+            "result_keys": {
+              "type": "object",
+              "additionalProperties": { "type": "string" }
+            },
+            "max_age_hours": { "type": "integer" }
+          },
+          "required": ["bias_time_windows_hours", "result_keys", "max_age_hours"]
+        },
+        "compute_bias": {
+          "type": "object",
+          "properties": {
+            "weights": {
+              "type": "object",
+              "properties": {
+                "macd": {
+                  "type": "object",
+                  "properties": {
+                    "bullish": { "type": "number" },
+                    "bearish": { "type": "number" },
+                    "neutral": { "type": "number" }
+                  },
+                  "required": ["bullish", "bearish", "neutral"]
+                },
+                "ema": {
+                  "type": "object",
+                  "properties": {
+                    "strong_above": { "type": "number" },
+                    "weak_above": { "type": "number" },
+                    "strong_below": { "type": "number" },
+                    "weak_below": { "type": "number" },
+                    "neutral": { "type": "number" }
+                  },
+                  "required": [
+                    "strong_above",
+                    "weak_above",
+                    "strong_below",
+                    "weak_below",
+                    "neutral"
+                  ]
+                },
+                "bollinger": {
+                  "type": "object",
+                  "properties": {
+                    "overbought": { "type": "number" },
+                    "oversold": { "type": "number" },
+                    "neutral": { "type": "number" }
+                  },
+                  "required": ["overbought", "oversold", "neutral"]
+                }
+              },
+              "required": ["macd", "ema", "bollinger"]
+            },
+            "rsi_rules": {
+              "type": "object",
+              "properties": {
+                "period": { "type": "string" },
+                "overbought_threshold": { "type": "integer" },
+                "oversold_threshold": { "type": "integer" },
+                "weight_overbought": { "type": "number" },
+                "weight_oversold": { "type": "number" }
+              },
+              "required": [
+                "period",
+                "overbought_threshold",
+                "oversold_threshold",
+                "weight_overbought",
+                "weight_oversold"
+              ]
+            },
+            "bias_normalization_divisor": { "type": "number" },
+            "market_state_threshold": { "type": "number" },
+            "volatility_mode": { "type": "string" }
+          },
+          "required": [
+            "weights",
+            "rsi_rules",
+            "bias_normalization_divisor",
+            "market_state_threshold",
+            "volatility_mode"
+          ]
+        },
+        "trend_reversal": {
+          "type": "object",
+          "properties": {
+            "combine_bias": {
+              "type": "object",
+              "properties": {
+                "keys": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "method": { "type": "string" },
+                "weights": {
+                  "type": "array",
+                  "items": { "type": "number" }
+                }
+              },
+              "required": ["keys", "method", "weights"]
+            },
+            "trend_shift": {
+              "type": "object",
+              "properties": {
+                "metric": { "type": "string" },
+                "threshold": { "type": "number" },
+                "direction": { "type": "string", "enum": ["both", "up", "down"] },
+                "lookback_minutes": { "type": "integer" }
+              },
+              "required": ["metric", "threshold", "direction", "lookback_minutes"]
+            },
+            "result_keys": {
+              "type": "object",
+              "properties": {
+                "combined_bias": { "type": "string" },
+                "found": { "type": "string" },
+                "event": { "type": "string" }
+              },
+              "required": ["combined_bias", "found", "event"]
+            }
+          },
+          "required": ["combine_bias", "trend_shift", "result_keys"]
+        }
+      },
+      "required": ["main", "compute_bias", "trend_reversal"]
     }
   },
-  "required": ["history_data_collector", "history_analyzer"]
+  "required": ["history_data_collector", "history_analyzer", "history_sentiment"]
 }
