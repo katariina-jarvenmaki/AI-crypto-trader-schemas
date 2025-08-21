@@ -112,11 +112,11 @@
                 "macd": {
                   "type": "object",
                   "properties": {
-                    "bullish": { "type": "integer" },
-                    "bearish": { "type": "integer" },
+                    "up": { "type": "integer" },
+                    "down": { "type": "integer" },
                     "neutral": { "type": "integer" }
                   },
-                  "required": ["bullish", "bearish", "neutral"]
+                  "required": ["up", "down", "neutral"]
                 },
                 "ema": {
                   "type": "object",
@@ -156,7 +156,7 @@
           },
           "required": ["weights", "rsi_rules", "bias_normalization_divisor", "market_state_threshold"]
         },
-        "trend_reversal": {
+        "trend_shift": {
           "type": "object",
           "properties": {
             "combine_bias": {
@@ -188,7 +188,7 @@
           "required": ["combine_bias", "trend_shift"]
         }
       },
-      "required": ["main", "compute_bias", "trend_reversal"]
+      "required": ["main", "compute_bias", "trend_shift"]
     }
   },
   "required": ["history_data_collector", "history_analyzer", "history_sentiment"]

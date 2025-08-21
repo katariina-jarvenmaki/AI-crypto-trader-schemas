@@ -30,15 +30,14 @@
       },
       "required": ["state", "bias", "avg_score", "volume", "coins_counted", "entries_counted"]
     },
-    "trend-reversal": {
+    "trend_shift": {
       "type": "object",
       "properties": {
-        "combined_bias": { "type": "number" },
         "direction": { "type": ["string", "null"] },
         "change": { "type": ["number", "null"] }
       },
-      "required": ["combined_bias", "direction", "change"]
+      "required": ["direction", "change"]
     }
   },
-  "required": ["timestamp", "broad-sentiment", "hour-sentiment", "trend-reversal"]
+  "required": ["timestamp", "broad-sentiment", "hour-sentiment", "trend_shift"]
 }
