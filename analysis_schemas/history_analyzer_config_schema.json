@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "History Config Schema",
+  "title": "History System Config",
   "type": "object",
   "properties": {
     "history_data_collector": {
@@ -60,7 +60,7 @@
           "properties": {
             "ema_trend_percent": { "type": "number" },
             "turnover_deviation": { "type": "number" },
-            "rsi_flag_delta": { "type": "number" },
+            "rsi_flag_delta": { "type": "integer" },
             "bollinger_mode": { "type": "string", "enum": ["strict", "loose"] },
             "_comment_to_bollinger_mode": { "type": "string" },
             "signal_strength_rules": {
@@ -95,11 +95,14 @@
             },
             "result_keys": {
               "type": "object",
-              "patternProperties": {
-                ".*": { "type": "string" }
-              }
+              "properties": {
+                "24.0": { "type": "string" },
+                "1.0": { "type": "string" },
+                "trend": { "type": "string" }
+              },
+              "required": ["24.0", "1.0", "trend"]
             },
-            "max_age_hours": { "type": "integer" }
+            "max_age_hours": { "type": "number" }
           },
           "required": ["bias_time_windows_hours", "result_keys", "max_age_hours"]
         },
@@ -144,8 +147,8 @@
             "rsi_rules": {
               "type": "object",
               "properties": {
-                "overbought_threshold": { "type": "number" },
-                "oversold_threshold": { "type": "number" },
+                "overbought_threshold": { "type": "integer" },
+                "oversold_threshold": { "type": "integer" },
                 "weight_overbought": { "type": "number" },
                 "weight_oversold": { "type": "number" }
               },
@@ -189,7 +192,106 @@
         }
       },
       "required": ["main", "compute_bias", "trend_shift"]
+    },
+    "history_archiver": {
+      "type": "object",
+      "properties": {
+        "max_age_hours": { "type": "integer" },
+        "archive": {
+          "type": "object",
+          "properties": {
+            "daily": { "type": "boolean" },
+            "weekly": { "type": "boolean" },
+            "monthly": { "type": "boolean" }
+          },
+          "required": ["daily", "weekly", "monthly"]
+        },
+        "remove_old_archives": { "type": "boolean" },
+        "remove_old_settings": {
+          "type": "object",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "archive_folder": { "type": "string" },
+            "retention_days": { "type": "integer" },
+            "_comment_retention_days": { "type": "string" },
+            "patterns": {
+              "type": "object",
+              "properties": {
+                "daily": { "type": "string" },
+                "weekly": { "type": "string" },
+                "monthly": { "type": "string" }
+              },
+              "required": ["daily", "weekly", "monthly"]
+            },
+            "date_formats": {
+              "type": "object",
+              "properties": {
+                "daily": { "type": "string" },
+                "weekly": { "type": "string" },
+                "monthly": { "type": "string" }
+              },
+              "required": ["daily", "weekly", "monthly"]
+            }
+          },
+          "required": ["enabled", "archive_folder", "retention_days", "patterns", "date_formats"]
+        },
+        "log_schema_required": { "type": "boolean" },
+        "retention": {
+          "type": "object",
+          "properties": {
+            "daily": { "type": "string" },
+            "weekly": { "type": "string" },
+            "monthly": { "type": "string" }
+          },
+          "required": ["daily", "weekly", "monthly"]
+        },
+        "future_entries": {
+          "type": "object",
+          "properties": {
+            "daily": { "type": "boolean" },
+            "weekly": { "type": "boolean" },
+            "monthly": { "type": "boolean" }
+          },
+          "required": ["daily", "weekly", "monthly"]
+        },
+        "save": {
+          "type": "object",
+          "properties": {
+            "verbose": { "type": "boolean" },
+            "overwrite_mode": { "type": "string", "enum": ["overwrite", "append"] }
+          },
+          "required": ["verbose", "overwrite_mode"]
+        },
+        "paths": {
+          "type": "object",
+          "properties": {
+            "archive_folder": { "type": "string" },
+            "base_log_name": { "type": "string" },
+            "extension": { "type": "string" }
+          },
+          "required": ["archive_folder", "base_log_name", "extension"]
+        },
+        "datetime": {
+          "type": "object",
+          "properties": {
+            "week_start_day": { "type": "string", "enum": ["monday", "sunday"] }
+          },
+          "required": ["week_start_day"]
+        }
+      },
+      "required": [
+        "max_age_hours",
+        "archive",
+        "remove_old_archives",
+        "remove_old_settings",
+        "log_schema_required",
+        "retention",
+        "future_entries",
+        "save",
+        "paths",
+        "datetime"
+      ]
     }
   },
-  "required": ["history_data_collector", "history_analyzer", "history_sentiment"]
+  "required": ["history_data_collector", "history_analyzer", "history_sentiment", "history_archiver"]
 }
