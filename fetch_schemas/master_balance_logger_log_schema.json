@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EquityRecord",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "equity": {
+      "type": "number"
+    },
+    "pnl": {
+      "type": "number"
+    }
+  },
+  "required": ["timestamp", "equity", "pnl"]
+}

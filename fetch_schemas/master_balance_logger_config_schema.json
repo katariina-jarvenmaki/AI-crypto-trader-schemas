@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "api": {
+      "type": "object",
+      "properties": {
+        "platform": { "type": "string" },
+        "accountType": { "type": "string" },
+        "pnl_category": { "type": "string" },
+        "pnl_fetch_limit": { "type": "integer", "minimum": 1 }
+      },
+      "required": ["platform", "accountType", "pnl_category", "pnl_fetch_limit"],
+      "additionalProperties": false
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "lookback_hours": { "type": "integer", "minimum": 0 },
+        "skip_if_already_logged": { "type": "boolean" }
+      },
+      "required": ["lookback_hours", "skip_if_already_logged"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["api", "logging"],
+  "additionalProperties": false
+}
