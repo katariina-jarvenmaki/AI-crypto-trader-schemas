@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ModuleConfig",
+  "type": "object",
+  "properties": {
+    "platform": {
+      "type": "string",
+      "description": "Trading platform identifier (e.g. bybit, binance).",
+      "default": "bybit"
+    },
+    "accountType": {
+      "type": "string",
+      "description": "Account type used for fetching wallet balance.",
+      "enum": ["UNIFIED", "CONTRACT", "SPOT"],
+      "default": "UNIFIED"
+    },
+    "coin_symbol": {
+      "type": "string",
+      "description": "The coin symbol to fetch equity for (e.g. USDT, BTC, ETH).",
+      "pattern": "^[A-Z0-9]{2,10}$",
+      "default": "USDT"
+    }
+  },
+  "required": ["platform", "accountType", "coin_symbol"],
+  "additionalProperties": false
+}

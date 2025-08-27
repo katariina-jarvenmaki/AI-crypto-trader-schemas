@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/config.schema.json",
+  "title": "AI Crypto Trader Config",
+  "type": "object",
+  "required": ["main", "runner"],
+
+  "properties": {
+    "main": {
+      "type": "object",
+      "required": ["name", "welcome_banner", "sleep_seconds"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Application display name"
+        },
+        "welcome_banner": {
+          "type": "boolean",
+          "description": "Show banner at startup"
+        },
+        "sleep_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Delay (in seconds) between trading loops"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "runner": {
+      "type": "object",
+      "description": "Runner-specific configs (extendable later)",
+      "properties": {},
+      "additionalProperties": true
+    }
+  },
+
+  "additionalProperties": false
+}
