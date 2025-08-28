@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TradingAccountSnapshot",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Aikaleima ISO 8601 -muodossa"
+    },
+    "current_equity": {
+      "type": "number",
+      "description": "Tilin tämänhetkinen oman pääoman määrä"
+    },
+    "available_balance": {
+      "type": "number",
+      "description": "Vapaasti käytettävissä oleva saldo"
+    },
+    "used_margin": {
+      "type": "number",
+      "description": "Käytössä oleva marginaali (voi olla negatiivinen)"
+    }
+  },
+  "required": [
+    "timestamp",
+    "current_equity",
+    "available_balance",
+    "used_margin"
+  ],
+  "additionalProperties": false
+}
