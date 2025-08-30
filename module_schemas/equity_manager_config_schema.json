@@ -1,33 +1,39 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Crypto Trader Config",
   "type": "object",
   "properties": {
     "coin_symbol": {
       "type": "string",
-      "enum": ["USDT", "BTC", "ETH"]
+      "description": "Päävaluutta (esim. USDT)"
+    },
+    "copytrade_minimum_investment": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Minimi-investointi kopiointikaupoissa"
     },
     "fetch": {
       "type": "object",
       "properties": {
         "platform": {
           "type": "string",
-          "enum": ["bybit", "binance", "ftx", "kraken", "bitfinex"]
+          "enum": ["bybit", "binance", "kraken"],
+          "description": "Kaupankäyntialusta"
         },
         "accountType": {
           "type": "string",
-          "enum": ["UNIFIED", "MARGIN", "SPOT"]
+          "enum": ["UNIFIED", "SPOT", "DERIVATIVES"],
+          "description": "Tilin tyyppi"
         },
         "fallback_coin_symbols": {
           "type": "array",
           "items": {
-            "type": "string",
-            "enum": ["BTC", "ETH", "USDT"]
+            "type": "string"
           },
-          "minItems": 1
+          "description": "Varakolikot, jos pääkolikko ei ole käytettävissä"
         }
       },
-      "required": ["platform", "accountType", "fallback_coin_symbols"],
-      "additionalProperties": false
+      "required": ["platform", "accountType"]
     },
     "logging": {
       "type": "object",
@@ -35,20 +41,21 @@
         "time_windows_hours": {
           "type": "array",
           "items": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 1
           },
-          "minItems": 1
+          "description": "Aikaikkunat tunteina logien säilytykselle"
         }
       },
-      "required": ["time_windows_hours"],
-      "additionalProperties": false
+      "required": ["time_windows_hours"]
     },
     "calculators": {
       "type": "object",
       "properties": {
         "currency_decimals": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "description": "Desimaalien määrä valuutassa"
         },
         "allowed_trade_margin_percent": {
           "type": "number",
@@ -61,8 +68,11 @@
           "maximum": 100
         }
       },
-      "required": ["currency_decimals", "allowed_trade_margin_percent", "max_trade_margin_percent"],
-      "additionalProperties": false
+      "required": [
+        "currency_decimals",
+        "allowed_trade_margin_percent",
+        "max_trade_margin_percent"
+      ]
     },
     "block_trades": {
       "type": "object",
@@ -79,20 +89,44 @@
         },
         "fallback_limit": {
           "type": "number",
-          "minimum": 0,
-          "maximum": 100
+          "minimum": 0
         }
       },
-      "required": ["allowed_last_equity_margin_percent", "allowed_prev_equity_margin_percent", "fallback_limit"],
-      "additionalProperties": false
+      "required": [
+        "allowed_last_equity_margin_percent",
+        "allowed_prev_equity_margin_percent",
+        "fallback_limit"
+      ]
+    },
+    "equity_stoploss": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "equity_stoploss_margin": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "use_pnl_margin_if_higher": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled",
+        "equity_stoploss_margin",
+        "use_pnl_margin_if_higher"
+      ]
     }
   },
   "required": [
     "coin_symbol",
+    "copytrade_minimum_investment",
     "fetch",
     "logging",
     "calculators",
-    "block_trades"
-  ],
-  "additionalProperties": false
+    "block_trades",
+    "equity_stoploss"
+  ]
 }
