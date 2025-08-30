@@ -1,26 +1,98 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "ModuleConfig",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "platform": {
-      "type": "string",
-      "description": "Trading platform identifier (e.g. bybit, binance).",
-      "default": "bybit"
-    },
-    "accountType": {
-      "type": "string",
-      "description": "Account type used for fetching wallet balance.",
-      "enum": ["UNIFIED", "CONTRACT", "SPOT"],
-      "default": "UNIFIED"
-    },
     "coin_symbol": {
       "type": "string",
-      "description": "The coin symbol to fetch equity for (e.g. USDT, BTC, ETH).",
-      "pattern": "^[A-Z0-9]{2,10}$",
-      "default": "USDT"
+      "enum": ["USDT", "BTC", "ETH"]
+    },
+    "fetch": {
+      "type": "object",
+      "properties": {
+        "platform": {
+          "type": "string",
+          "enum": ["bybit", "binance", "ftx", "kraken", "bitfinex"]
+        },
+        "accountType": {
+          "type": "string",
+          "enum": ["UNIFIED", "MARGIN", "SPOT"]
+        },
+        "fallback_coin_symbols": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["BTC", "ETH", "USDT"]
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["platform", "accountType", "fallback_coin_symbols"],
+      "additionalProperties": false
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "time_windows_hours": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["time_windows_hours"],
+      "additionalProperties": false
+    },
+    "calculators": {
+      "type": "object",
+      "properties": {
+        "currency_decimals": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "allowed_trade_margin_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "max_trade_margin_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "required": ["currency_decimals", "allowed_trade_margin_percent", "max_trade_margin_percent"],
+      "additionalProperties": false
+    },
+    "block_trades": {
+      "type": "object",
+      "properties": {
+        "allowed_last_equity_margin_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "allowed_prev_equity_margin_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "fallback_limit": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "required": ["allowed_last_equity_margin_percent", "allowed_prev_equity_margin_percent", "fallback_limit"],
+      "additionalProperties": false
     }
   },
-  "required": ["platform", "accountType", "coin_symbol"],
+  "required": [
+    "coin_symbol",
+    "fetch",
+    "logging",
+    "calculators",
+    "block_trades"
+  ],
   "additionalProperties": false
 }
