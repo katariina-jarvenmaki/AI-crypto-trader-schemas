@@ -1,31 +1,132 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "TradingAccountSnapshot",
+  "title": "Equity Data Schema",
   "type": "object",
   "properties": {
     "timestamp": {
       "type": "string",
-      "format": "date-time",
-      "description": "Aikaleima ISO 8601 -muodossa"
+      "format": "date-time"
     },
     "current_equity": {
-      "type": "number",
-      "description": "Tilin tämänhetkinen oman pääoman määrä"
+      "type": "number"
     },
-    "available_balance": {
-      "type": "number",
-      "description": "Vapaasti käytettävissä oleva saldo"
+    "last_equity": {
+      "type": "number"
+    },
+    "previous_equity": {
+      "type": "number"
+    },
+    "last_difference": {
+      "type": "number"
+    },
+    "prev_difference": {
+      "type": "number"
+    },
+    "last_percent_change": {
+      "type": "number"
+    },
+    "prev_percent_change": {
+      "type": "number"
+    },
+    "current_balance": {
+      "type": "number"
     },
     "used_margin": {
-      "type": "number",
-      "description": "Käytössä oleva marginaali (voi olla negatiivinen)"
+      "type": "number"
+    },
+    "available_margin": {
+      "type": "number"
+    },
+    "allowed_negative_margins": {
+      "type": "object",
+      "properties": {
+        "allowed_negative_long_margin": {
+          "type": "number"
+        },
+        "allowed_negative_short_margin": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "allowed_negative_long_margin",
+        "allowed_negative_short_margin"
+      ],
+      "additionalProperties": false
+    },
+    "block_trades_status": {
+      "type": "object",
+      "properties": {
+        "block_trades": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "block_trades",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "min_investment": {
+      "type": "object",
+      "properties": {
+        "minimum_investment": {
+          "type": "number"
+        },
+        "diff_amount": {
+          "type": "number"
+        },
+        "diff_percent": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "minimum_investment",
+        "diff_amount",
+        "diff_percent"
+      ],
+      "additionalProperties": false
+    },
+    "equity_stoploss": {
+      "type": "object",
+      "properties": {
+        "equity_stoploss_percent": {
+          "type": "number"
+        },
+        "equity_stoploss_margin": {
+          "type": "number"
+        },
+        "equity_stoploss_type": {
+          "type": "string",
+          "enum": ["config", "dynamic", "manual"]
+        }
+      },
+      "required": [
+        "equity_stoploss_percent",
+        "equity_stoploss_margin",
+        "equity_stoploss_type"
+      ],
+      "additionalProperties": false
     }
   },
   "required": [
     "timestamp",
     "current_equity",
-    "available_balance",
-    "used_margin"
+    "last_equity",
+    "previous_equity",
+    "last_difference",
+    "prev_difference",
+    "last_percent_change",
+    "prev_percent_change",
+    "current_balance",
+    "used_margin",
+    "available_margin",
+    "allowed_negative_margins",
+    "block_trades_status",
+    "min_investment",
+    "equity_stoploss"
   ],
   "additionalProperties": false
 }
