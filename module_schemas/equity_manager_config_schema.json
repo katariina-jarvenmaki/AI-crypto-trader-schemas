@@ -12,11 +12,6 @@
       "minimum": 0,
       "description": "Pienin sallittu sijoitus copytrade-toiminnossa"
     },
-    "check_interval_minutes": {
-      "type": "integer",
-      "minimum": 1,
-      "description": "Tarkistusväli minuutteina"
-    },
     "exit_on_fetch_fail": {
       "type": "boolean",
       "description": "Suljetaanko ohjelma, jos fetch epäonnistuu"
@@ -117,7 +112,6 @@
   "required": [
     "coin_symbol",
     "copytrade_minimum_investment",
-    "check_interval_minutes",
     "exit_on_fetch_fail",
     "fetch",
     "logging",
